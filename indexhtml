@@ -1,1 +1,218 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vidoora AI - AI Video Creator</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #090914;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  padding: 22px 7%;
+  border-bottom: 1px solid #25243a;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+  color: #a78bfa;
+}
+
+.logo span {
+  color: white;
+}
+
+.hero {
+  text-align: center;
+  padding: 65px 20px 35px;
+}
+
+.hero h1 {
+  font-size: 48px;
+}
+
+.hero h1 span {
+  color: #a78bfa;
+}
+
+.hero p {
+  color: #aaa;
+  line-height: 1.7;
+}
+
+.container {
+  max-width: 720px;
+  margin: 25px auto;
+  padding: 25px;
+  background: #141426;
+  border: 1px solid #30294b;
+  border-radius: 18px;
+}
+
+button, select, textarea {
+  font-size: 16px;
+  border-radius: 9px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 13px;
+  border: 0;
+  background: #292941;
+  color: white;
+}
+
+.tabs button.active,
+.generate {
+  background: linear-gradient(90deg, #7c3aed, #2563eb);
+  color: white;
+}
+
+label {
+  display: block;
+  margin: 20px 0 10px;
+}
+
+textarea, select {
+  width: 100%;
+  padding: 15px;
+  background: #090914;
+  color: white;
+  border: 1px solid #383653;
+}
+
+textarea {
+  height: 120px;
+}
+
+.generate {
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.preview {
+  text-align: center;
+  padding: 25px;
+  border: 1px dashed #51446f;
+  border-radius: 12px;
+  margin-top: 25px;
+  color: #aaa;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Vidoora <span>AI</span></div>
+</header>
+
+<section class="hero">
+  <p>YOUR CREATIVE WORLD STARTS HERE</p>
+  <h1>Imagine It.<br><span>Bring It To Life.</span></h1>
+  <p>Create videos from text descriptions or images using AI.</p>
+</section>
+
+<main class="container">
+  <h2>Create Your Video</h2>
+
+  <div class="tabs">
+    <button id="textTab" class="active" onclick="setMode('text')">
+      Text to Video
+    </button>
+    <button id="imageTab" onclick="setMode('image')">
+      Image to Video
+    </button>
+  </div>
+
+  <label id="promptLabel">Describe your video</label>
+  <textarea id="prompt" placeholder="Describe the video you want to create..."></textarea>
+
+  <div id="uploadArea" style="display:none">
+    <label>Upload your image</label>
+    <input type="file" id="imageUpload" accept="image/*">
+  </div>
+
+  <label>Video Duration</label>
+  <select id="duration">
+    <option>5–10 seconds</option>
+    <option>15–30 seconds</option>
+    <option>30–60 seconds</option>
+  </select>
+
+  <button class="generate" onclick="generateVideo()">
+    ✨ Generate Video
+  </button>
+
+  <div class="preview" id="preview">
+    <h3>🎬 Your Video Preview</h3>
+    <p>Your video will appear here.</p>
+  </div>
+</main>
+
+<footer>
+  © 2026 Vidoora AI. Create without limits.
+</footer>
+
+<script>
+let mode = "text";
+
+function setMode(selected) {
+  mode = selected;
+
+  document.getElementById("textTab").classList.toggle("active", mode === "text");
+  document.getElementById("imageTab").classList.toggle("active", mode === "image");
+
+  document.getElementById("uploadArea").style.display =
+    mode === "image" ? "block" : "none";
+
+  document.getElementById("promptLabel").textContent =
+    mode === "image" ? "Describe how your image should move" : "Describe your video";
+}
+
+function generateVideo() {
+  const prompt = document.getElementById("prompt").value.trim();
+  const file = document.getElementById("imageUpload").files[0];
+
+  if (!prompt) {
+    alert("Please describe your video first.");
+    return;
+  }
+
+  if (mode === "image" && !file) {
+    alert("Please upload an image first.");
+    return;
+  }
+
+  document.getElementById("preview").innerHTML =
+    "<h3>Your idea is ready!</h3><p>AI video generation will be connected here next.</p>";
+}
+</script>
+
+</body>
+</html>
