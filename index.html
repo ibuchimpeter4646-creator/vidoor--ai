@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vidoora AI - Video Creator</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080914;color:#fff;font-family:Arial,sans-serif}
+header{padding:20px 7%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #24243b}
+.logo{font-size:25px;font-weight:bold;color:#a78bfa}
+.logo span{color:#fff}
+nav a{color:#bbb;text-decoration:none;margin-left:20px;font-size:14px}
+main{max-width:1100px;margin:45px auto;padding:20px}
+.hero{text-align:center;margin-bottom:35px}
+.hero h1{font-size:clamp(30px,6vw,48px);margin:10px 0}
+.hero h1 span{color:#a78bfa}
+.hero p{color:#999;line-height:1.6}
+.panel{background:#111326;border:1px solid #292943;border-radius:18px;padding:25px;margin-bottom:22px}
+.tabs{display:flex;gap:12px;margin-bottom:22px}
+button,select{cursor:pointer}
+.tab{background:#20213a;color:#bbb;border:0;border-radius:9px;padding:13px 18px}
+.tab.active{background:#7548df;color:white}
+label{display:block;margin:18px 0 9px;font-weight:bold;font-size:14px}
+textarea,input,select{width:100%;padding:15px;border-radius:10px;border:1px solid #34344e;background:#090b19;color:white;font-size:15px}
+textarea{min-height:130px;resize:vertical}
+select{margin-bottom:8px}
+.upload{border:2px dashed #454267;border-radius:12px;padding:28px;text-align:center;color:#aaa}
+.upload input{margin-top:15px}
+.generate{width:100%;padding:17px;border:0;border-radius:11px;background:linear-gradient(90deg,#7044db,#2876d9);color:white;font-size:17px;font-weight:bold;margin-top:22px}
+.preview{min-height:220px;border:1px dashed #41415e;border-radius:12px;display:flex;align-items:center;justify-content:center;text-align:center;color:#999;padding:20px}
+.small{font-size:12px;color:#888;line-height:1.6}
+footer{text-align:center;padding:30px;color:#777;font-size:13px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">Vidoora <span>AI</span></div>
+<nav><a href="#creator">Create</a><a href="#preview">Preview</a></nav>
+</header>
+
+<main>
+<section class="hero">
+<h1>Bring Your Stories to <span>Life</span></h1>
+<p>Create amazing videos from text or images with Vidoora AI.</p>
+</section>
+
+<section class="panel" id="creator">
+<div class="tabs">
+<button class="tab active" id="textTab" onclick="switchMode('text')">Text to Video</button>
+<button class="tab" id="imageTab" onclick="switchMode('image')">Image to Video</button>
+</div>
+
+<div id="textMode">
+<label>Describe the video you want to create</label>
+<textarea id="prompt" placeholder="Describe your story, characters, location, camera movement and style..."></textarea>
+</div>
+
+<div id="imageMode" class="hidden">
+<label>Upload your image</label>
+<div class="upload">
+Choose an image to animate
+<input type="file" id="imageFile" accept="image/*">
+</div>
+<label>Describe the movement</label>
+<textarea id="imagePrompt" placeholder="Describe how you want the image to move..."></textarea>
+</div>
+
+<label>Video duration</label>
+<select id="duration">
+<option>5–10 seconds</option>
+<option>15–30 seconds</option>
+<option>30–60 seconds</option>
+</select>
+
+<label>Video style</label>
+<select id="style">
+<option>Cinematic</option>
+<option>Realistic</option>
+<option>Animation</option>
+<option>Horror story</option>
+<option>Documentary</option>
+</select>
+
+<button class="generate" onclick="generate()">Generate Video ✨</button>
+<p class="small">Video generation will become available when an AI video engine is connected.</p>
+</section>
+
+<section class="panel" id="preview">
+<h2>Your Video Preview</h2>
+<div class="preview" id="result">
+<div>🎬<br><br>Your generated video will appear here.</div>
+</div>
+</section>
+</main>
+
+<footer>© 2026 Vidoora AI. Create beyond imagination.</footer>
+
+<script>
+let mode='text';
+function switchMode(selected){
+mode=selected;
+document.getElementById('textMode').classList.toggle('hidden',mode!=='text');
+document.getElementById('imageMode').classList.toggle('hidden',mode!=='image');
+document.getElementById('textTab').classList.toggle('active',mode==='text');
+document.getElementById('imageTab').classList.toggle('active',mode==='image');
+}
+function generate(){
+const prompt=mode==='text'
+?document.getElementById('prompt').value.trim()
+:document.getElementById('imagePrompt').value.trim();
+const file=document.getElementById('imageFile').files[0];
+if(!prompt){alert('Please describe the video first.');return;}
+if(mode==='image'&&!file){alert('Please upload an image first.');return;}
+document.getElementById('result').innerHTML=
+'Your request is ready. Connect an AI video-generation engine to create the actual video.';
+}
+</script>
+</body>
+</html>
